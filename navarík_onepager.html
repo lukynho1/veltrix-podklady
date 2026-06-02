@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veltrix × Chytré zelené školství</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --red: #e22d2e;
+    --red-dim: rgba(226,45,46,0.12);
+    --red-border: rgba(226,45,46,0.35);
+    --surface2: #18181e;
+    --border: rgba(255,255,255,0.07);
+    --border-strong: rgba(255,255,255,0.13);
+    --text: #f0f0f2;
+    --muted: #888890;
+    --muted2: #555560;
+    --green: #2ecc71;
+  }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #0d0305;
+    color: var(--text);
+    min-height: 100vh;
+    padding: 52px 72px;
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    overflow-x: hidden;
+  }
+  .pulse-bg { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .pulse-spot { position:absolute; border-radius:50%; will-change:opacity,transform; filter:blur(85px); }
+  .ps1 { width:80vw; height:80vw; background:radial-gradient(circle,rgba(226,45,46,.75) 0%,rgba(180,10,10,.22) 45%,transparent 68%); top:-20vw; left:-15vw; animation:pp 7s ease-in-out infinite; }
+  .ps2 { width:75vw; height:75vw; background:radial-gradient(circle,rgba(226,45,46,.70) 0%,transparent 65%); top:-15vw; right:-15vw; animation:pp 9s ease-in-out 1.8s infinite reverse; }
+  .ps3 { width:70vw; height:70vw; background:radial-gradient(circle,rgba(200,20,20,.65) 0%,transparent 65%); bottom:-15vw; left:-12vw; animation:pp 10s ease-in-out 3.2s infinite; }
+  .ps4 { width:75vw; height:75vw; background:radial-gradient(circle,rgba(226,45,46,.72) 0%,transparent 65%); bottom:-18vw; right:-12vw; animation:pp 8s ease-in-out 0.6s infinite reverse; }
+  @keyframes pp { 0%,100%{opacity:.2;transform:scale(1)} 25%{opacity:1;transform:scale(1.22)} 50%,75%{opacity:.15;transform:scale(0.96)} }
+
+  .header, .hero, section, .footer { position: relative; z-index: 1; }
+
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 56px; padding-bottom: 28px;
+    border-bottom: 0.5px solid var(--border-strong);
+  }
+  .header-tag { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); border: 0.5px solid var(--border-strong); padding: 6px 16px; border-radius: 20px; }
+
+  .hero { margin-bottom: 52px; }
+  .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -2px; line-height: 1.08; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--red); }
+  .hero p { font-size: 15px; color: var(--muted); max-width: 600px; line-height: 1.7; }
+
+  .sl { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+  .st { font-size: 20px; font-weight: 700; margin-bottom: 24px; color: var(--text); }
+  hr.div { border: none; border-top: 0.5px solid var(--border); margin: 52px 0; }
+
+  /* CARDS */
+  .context-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .ctx-card { background: rgba(255,255,255,0.04); border: 0.5px solid var(--border-strong); border-radius: 14px; padding: 22px 20px; }
+  .ctx-icon { width: 34px; height: 34px; background: var(--red-dim); border: 0.5px solid var(--red-border); border-radius: 9px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .ctx-icon svg { width: 16px; height: 16px; stroke: var(--red); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ctx-title { font-size: 13.5px; font-weight: 700; margin-bottom: 6px; }
+  .ctx-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .ctx-saving { margin-top: 10px; font-size: 11px; font-weight: 700; color: var(--green); }
+
+  /* FLOW */
+  .flow { display: flex; align-items: stretch; }
+  .fs { flex: 1; display: flex; flex-direction: column; align-items: center; position: relative; }
+  .sb { flex: 1; display: flex; flex-direction: column; align-items: center; }
+  .fs:not(:last-child)::after { content:''; position:absolute; top:27px; left:calc(50% + 28px); width:calc(100% - 56px); height:1px; background:linear-gradient(to right,var(--red-border),var(--border)); z-index:0; }
+  .sc { width:54px; height:54px; border-radius:50%; background:var(--surface2); border:1.5px solid var(--red-border); display:flex; align-items:center; justify-content:center; font-size:17px; font-weight:800; color:var(--red); margin-bottom:16px; position:relative; z-index:1; flex-shrink:0; }
+  .sc.hl { background:var(--red-dim); border-color:var(--red); box-shadow:0 0 18px rgba(226,45,46,0.28); }
+  .sb { text-align:center; padding:0 8px; flex:1; display:flex; flex-direction:column; align-items:center; }
+  .st2 { font-size:13px; font-weight:700; color:var(--text); margin-bottom:5px; line-height:1.3; }
+  .ss2 { font-size:11px; color:var(--muted); line-height:1.5; flex:1; }
+
+  /* BONUS BLOCK */
+  .bonus { background: var(--red-dim); border: 0.5px solid var(--red-border); border-radius: 14px; padding: 28px 32px; display: flex; gap: 28px; align-items: flex-start; }
+  .bonus-tag { background: var(--red); color: white; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 10px; border-radius: 20px; white-space: nowrap; margin-top: 2px; flex-shrink: 0; }
+  .bonus-content h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+  .bonus-content p { font-size: 13px; color: var(--muted); line-height: 1.65; max-width: 580px; }
+  .bonus-topics { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .btag { font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.05); border: 0.5px solid var(--border-strong); padding: 4px 10px; border-radius: 20px; }
+
+  /* NEXT */
+  .next { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .nc { background:rgba(255,255,255,0.04); border:0.5px solid var(--border-strong); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:9px; }
+  .nc.hl { background:var(--red-dim); border-color:var(--red-border); }
+  .ni { width:34px; height:34px; background:rgba(255,255,255,0.06); border:0.5px solid var(--border-strong); border-radius:9px; display:flex; align-items:center; justify-content:center; }
+  .nc.hl .ni { background:rgba(226,45,46,0.2); border-color:var(--red-border); }
+  .ni svg { width:15px; height:15px; stroke:var(--muted); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .nc.hl .ni svg { stroke:var(--red); }
+  .nt { font-size:13.5px; font-weight:700; }
+  .nd { font-size:12px; color:var(--muted); line-height:1.6; }
+
+  .footer { border-top:0.5px solid var(--border-strong); padding-top:24px; margin-top:52px; display:flex; align-items:center; justify-content:space-between; }
+  .footer span { font-size:12.5px; color:var(--muted); }
+
+  @media print { body { padding:32px 48px; background:#0d0305 !important; } *{ -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+</style>
+</head>
+<body>
+
+<div class="pulse-bg">
+  <div class="pulse-spot ps1"></div>
+  <div class="pulse-spot ps2"></div>
+  <div class="pulse-spot ps3"></div>
+  <div class="pulse-spot ps4"></div>
+</div>
+
+<div class="header">
+  <img src="veltrix-logo-white-cropped.png" alt="Veltrix" style="height:42px;width:auto;object-fit:contain;">
+  <div class="header-tag">Chytré zelené školství — přehled</div>
+</div>
+
+<div class="hero">
+  <h1>Škola která šetří,<br>myslí a <em>inspiruje</em>.</h1>
+  <p>Přinášíme školám a školkám chytré technologie — od osvětlení po monitoring spotřeby. Vše na jedné platformě, s vlastní IoT infrastrukturou nezávislou na školní síti.</p>
+</div>
+
+<hr class="div">
+
+<!-- CO SKOLA ZISKA -->
+<section style="margin-bottom:52px;">
+  <div class="sl">Co škola získá</div>
+  <div class="st">Šest věcí, které fungují od prvního dne.</div>
+  <div class="context-grid">
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      </div>
+      <div class="ctx-title">Chytré osvětlení</div>
+      <p class="ctx-text">Automatické stmívání podle denního světla a přítomnosti osob. Méně únavy žáků, nižší spotřeba energie.</p>
+      <div class="ctx-saving">Úspora 30–50 % na osvětlení</div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+      </div>
+      <div class="ctx-title">Regulace vytápění</div>
+      <p class="ctx-text">Každá místnost samostatně. Prázdné třídy, víkendy a prázdniny se vytápějí na minimum automaticky.</p>
+      <div class="ctx-saving">Úspora 20–35 % na vytápění</div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </div>
+      <div class="ctx-title">Monitoring spotřeby</div>
+      <p class="ctx-text">Ředitel i zřizovatel vidí v reálném čase kde se plýtvá. Jasná data pro rozhodování a dotační reporting.</p>
+      <div class="ctx-saving">Přehled v reálném čase</div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"/><path d="M12 8v4M12 16h.01"/></svg>
+      </div>
+      <div class="ctx-title">CO₂ monitoring</div>
+      <p class="ctx-text">Senzory ve třídách upozorní na špatnou kvalitu vzduchu. Vědecky prokázaný vliv na pozornost a výsledky žáků.</p>
+      <div class="ctx-saving">Lepší soustředění žáků</div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+      </div>
+      <div class="ctx-title">Vlastní IoT síť</div>
+      <p class="ctx-text">Dodáváme kompletní síťovou infrastrukturu — nezávislou na školní WiFi. IT správce školy se nestará.</p>
+      <div class="ctx-saving">Plně v naší správě</div>
+    </div>
+    <div class="ctx-card">
+      <div class="ctx-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="ctx-title">Otevřená platforma</div>
+      <p class="ctx-text">Home Assistant — žádná závislost na jednom výrobci. Kdykoli rozšiřitelné bez výměny celého systému.</p>
+      <div class="ctx-saving">Investice na roky dopředu</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- BONUS PREDNASKA -->
+<section style="margin-bottom:52px;">
+  <div class="sl">Přidaná hodnota pro žáky</div>
+  <div class="st">Žádná jiná firma tohle nepřinese.</div>
+  <div class="bonus">
+    <div class="bonus-tag">Bonus zdarma</div>
+    <div class="bonus-content">
+      <h3>Přednáška majitele společnosti přímo ve škole</h3>
+      <p>Součástí každé spolupráce je přednáška pro žáky — bez firemní propagace, bez reklamy. Otevřený rozhovor o tom, co žáky čeká. Majitel Veltrix mluví ze své vlastní zkušenosti jako mladý podnikatel.</p>
+      <div class="bonus-topics">
+        <span class="btag">Chytré technologie a budoucnost</span>
+        <span class="btag">Jak vybrat střední školu</span>
+        <span class="btag">Cesta k podnikání — reálně</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- JAK TO FUNGUJE -->
+<section style="margin-bottom:52px;">
+  <div class="sl">Jak spolupráce vypadá</div>
+  <div class="st">Od první schůzky ke spuštěnému systému.</div>
+  <div class="flow">
+    <div class="fs">
+      <div class="sc">1</div>
+      <div class="sb">
+        <div class="st2">Bezplatná konzultace</div>
+        <div class="ss2">Prohlédneme budovu, navrhneme co dává smysl a za kolik</div>
+      </div>
+    </div>
+    <div class="fs">
+      <div class="sc">2</div>
+      <div class="sb">
+        <div class="st2">Návrh na míru</div>
+        <div class="ss2">Konkrétní řešení, položkový rozpočet, dotační možnosti</div>
+      </div>
+    </div>
+    <div class="fs">
+      <div class="sc">3</div>
+      <div class="sb">
+        <div class="st2">Instalace</div>
+        <div class="ss2">Bez narušení provozu školy, koordinujeme práce mimo výuku</div>
+      </div>
+    </div>
+    <div class="fs">
+      <div class="sc">4</div>
+      <div class="sb">
+        <div class="st2">Předání a zaškolení</div>
+        <div class="ss2">Správce nepotřebuje technické znalosti — dashboard je přehledný</div>
+      </div>
+    </div>
+    <div class="fs">
+      <div class="sc hl">5</div>
+      <div class="sb">
+        <div class="st2">Servis a rozvoj</div>
+        <div class="ss2">Systém roste se školou — přidáme kamery, senzory, nové funkce</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div">
+
+<!-- DALSI KROKY -->
+<section style="margin-bottom:52px;">
+  <div class="sl">Výstupy dnešního setkání</div>
+  <div class="st">Tři věci pro rozjezd.</div>
+  <div class="next">
+    <div class="nc hl">
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+      <div class="nt">Která škola jako první</div>
+      <p class="nd">Vybereme konkrétní objekt — ověříme model naživo a vytvoříme referenci.</p>
+    </div>
+    <div class="nc hl">
+      <div class="ni"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <div class="nt">Dotační možnosti</div>
+      <p class="nd">Zmapujeme dostupné dotace — OPŽP, IROP, Národní plán obnovy pro energetické úspory škol.</p>
+    </div>
+    <div class="nc hl">
+      <div class="ni"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="nt">Model spolupráce s více školami</div>
+      <p class="nd">Jak nastavit opakující se proces — jeden kontakt, více škol, standardizovaná nabídka.</p>
+    </div>
+  </div>
+</section>
+
+<div class="footer">
+  <span>Lukáš Pavlík — Veltrix</span>
+  <span>+420 705 404 259</span>
+  <span>info@veltrix.cz</span>
+  <span>veltrix.cz</span>
+</div>
+
+</body>
+</html>
